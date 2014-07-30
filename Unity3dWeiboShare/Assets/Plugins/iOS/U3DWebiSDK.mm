@@ -199,18 +199,18 @@ extern "C"{
     
     void _weiboShare()
     {
-    	NSMutableDictionary * ds = [[NSMutableDictionary alloc] init];
-    	[ds setValue:@"test_weibo_test_sdk" forKey:@"status"];
-    	[WBHttpRequest requestWithAccessToken:[weibo_sdk wbtoken] url:@"https://api.weibo.com/2/statuses/update.json" httpMethod:@"POST" params:ds delegate:[U3DWeiboShare getInstacne]];
+//    	NSMutableDictionary * ds = [[NSMutableDictionary alloc] init];
+//    	[ds setValue:@"test_weibo_test_sdk" forKey:@"status"];
+//    	[WBHttpRequest requestWithAccessToken:[weibo_sdk wbtoken] url:@"https://api.weibo.com/2/statuses/update.json" httpMethod:@"POST" params:ds delegate:[U3DWeiboShare getInstacne]];
     	
-//        WBSendMessageToWeiboRequest *request = [WBSendMessageToWeiboRequest requestWithMessage:[weibo_sdk messageToShare]];
-//        request.userInfo = @{@"ShareMessageFrom": @"SendMessageToWeiboViewController",
-//                             @"Other_Info_1": [NSNumber numberWithInt:123],
-//                             @"Other_Info_2": @[@"obj1", @"obj2"],
-//                             @"Other_Info_3": @{@"key1": @"obj1", @"key2": @"obj2"}};
-//        //request.shouldOpenWeiboAppInstallPageIfNotInstalled = NO;
-//        
-//        [WeiboSDK sendRequest:request];
+        WBSendMessageToWeiboRequest *request = [WBSendMessageToWeiboRequest requestWithMessage:[weibo_sdk messageToShare]];
+        request.userInfo = @{@"ShareMessageFrom": @"SendMessageToWeiboViewController",
+                             @"Other_Info_1": [NSNumber numberWithInt:123],
+                             @"Other_Info_2": @[@"obj1", @"obj2"],
+                             @"Other_Info_3": @{@"key1": @"obj1", @"key2": @"obj2"}};
+        //request.shouldOpenWeiboAppInstallPageIfNotInstalled = NO;
+        
+        [WeiboSDK sendRequest:request];
         
 //        WBProvideMessageForWeiboRequest *request = [WBProvideMessageForWeiboRequest requestWithMessage:[weibo_sdk messageToShare]];
 //        request.userInfo = @{@"ShareMessageFrom": @"SendMessageToWeiboViewController",
