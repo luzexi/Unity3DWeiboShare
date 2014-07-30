@@ -17,9 +17,14 @@ public class WeiboTest : MonoBehaviour {
 
 	void OnGUI()
 	{
-		if(GUI.Button(new Rect(0,0,100,30) , "share"))
+		if(GUI.Button(new Rect(0,0,100,40) , "share"))
 		{
 			WeiboShare.sInstance.Share();
+		}
+
+		if(GUI.Button(new Rect(0,40,100,40),"Authorize"))
+		{
+			WeiboShare.sInstance.Authorize();
 		}
 	}
 }

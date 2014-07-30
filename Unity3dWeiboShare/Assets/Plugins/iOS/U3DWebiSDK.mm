@@ -6,19 +6,10 @@
 //  Copyright (c) 2014年 SINA iOS Team. All rights reserved.
 //
 
-#include "UnityAppController.h"
+
+#import <Foundation/Foundation.h>
 #import "WeiboSDK.h"
-
-@interface U3DWebiSDK : UIResponder <UIApplicationDelegate, WeiboSDKDelegate>
-{
-    NSString* wbtoken;
-    NSString *gameObjectName;
-}
-
-@property (strong, retain) NSString* wbtoken;
-
-@end
-
+#import "U3DWebiSDK.h"
 
 @interface WBBaseRequest ()
 - (void)debugPrint;
@@ -29,19 +20,18 @@
 @end
 
 
-
-@interface U3DWebiSDK ()
-
-@end
+#include "UnityAppController.h"
 
 @implementation U3DWebiSDK
 
 @synthesize wbtoken;
+@synthesize wbcode;
 
-- (id)init:(const char *)gameobjName
+- (id)init:(char *)gameobjName
 {
     self = [super init];
-    gameObjectName = [[NSString stringWithUTF8String:gameobjName] retain];
+    
+    gameObjectName = [NSString stringWithUTF8String:gameobjName];
     [WeiboSDK enableDebugMode:YES];
     [WeiboSDK registerApp:@"2932651019"];
     return self;
@@ -84,6 +74,7 @@
 {
     if ([request isKindOfClass:WBProvideMessageForWeiboRequest.class])
     {
+    	NSLog(@"===== request send ");
         //send success.
         const char * gameObjName = [gameObjectName cStringUsingEncoding:NSUTF8StringEncoding];
         UnitySendMessage(gameObjName, "OnRequest", "ok");
@@ -102,6 +93,9 @@
                                                        delegate:nil
                                               cancelButtonTitle:@"确定"
                                               otherButtonTitles:nil];
+                                              
+        NSLog(@"===== WBSendMessageToWeiboResponse %@",message);
+        
         [alert show];
         [alert release];
     }
@@ -117,6 +111,9 @@
                                               otherButtonTitles:nil];
         
         self.wbtoken = [(WBAuthorizeResponse *)response accessToken];
+        
+        NSLog(@"===== authorize %@",self.wbtoken);
+        NSLog(@"===== authorize %@",message);
         
         [alert show];
         [alert release];
@@ -154,23 +151,66 @@
 
 static U3DWebiSDK * weibo_sdk = nil;
 
++(void)setToken:(NSString *) token
+{
+    weibo_sdk.wbtoken = token;
+}
+
++(void)setCode:(NSString *)code
+{
+    weibo_sdk.wbcode = code;
+}
+
+
 extern "C"{
 
-    void _weiboInit(const char * gameobjectName)
+    void _weiboInit(char * gameobjectName)
     {
         weibo_sdk = [[U3DWebiSDK alloc] init:gameobjectName ];
     }
     
+    void _weiboAuthorize()
+    {
+    	WBAuthorizeRequest *request = [WBAuthorizeRequest request];
+    	request.redirectURI = @"https://api.weibo.com/oauth2/default.html";
+    	request.scope = @"all";
+    	request.userInfo = @{@"SSO_From": @"SendMessageToWeiboViewController",
+                         @"Other_Info_1": [NSNumber numberWithInt:123],
+                         @"Other_Info_2": @[@"obj1", @"obj2"],
+                         @"Other_Info_3": @{@"key1": @"obj1", @"key2": @"obj2"}};
+    	[WeiboSDK sendRequest:request];
+    	
+//        NSMutableDictionary * ds = [[NSMutableDictionary alloc] init];
+//    	[ds setValue:@"2932651019" forKey:@"client_id"];
+//        [ds setValue:@"http://www.luzexi.com" forKey:@"redirect_uri"];
+//    	[WBHttpRequest requestWithURL:@"https://api.weibo.com/oauth2/authorize" httpMethod:@"POST" params:ds delegate:[U3DWeiboAuthorize getInstance]];
+    }
+    
+    void _weiboAuth()
+    {
+        NSMutableDictionary * ds = [[NSMutableDictionary alloc] init];
+    	[ds setValue:@"2932651019" forKey:@"client_id"];
+        [ds setValue:@"46113253030969440e4864c88f38cd73" forKey:@"client_secret"];
+        [ds setValue:@"authorization_code" forKey:@"grant_type"];
+        [ds setValue:weibo_sdk.wbcode forKey:@"code"];
+        [ds setValue:@"http://www.luzexi.com" forKey:@"redirect_uri"];
+    	[WBHttpRequest requestWithURL:@"https://api.weibo.com/oauth2/access_token" httpMethod:@"POST" params:ds delegate:[U3DWeiboAuth getInstance]];
+    }
+    
     void _weiboShare()
     {
-        WBSendMessageToWeiboRequest *request = [WBSendMessageToWeiboRequest requestWithMessage:[weibo_sdk messageToShare]];
-        request.userInfo = @{@"ShareMessageFrom": @"SendMessageToWeiboViewController",
-                             @"Other_Info_1": [NSNumber numberWithInt:123],
-                             @"Other_Info_2": @[@"obj1", @"obj2"],
-                             @"Other_Info_3": @{@"key1": @"obj1", @"key2": @"obj2"}};
-        //request.shouldOpenWeiboAppInstallPageIfNotInstalled = NO;
-        
-        [WeiboSDK sendRequest:request];
+    	NSMutableDictionary * ds = [[NSMutableDictionary alloc] init];
+    	[ds setValue:@"test_weibo_test_sdk" forKey:@"status"];
+    	[WBHttpRequest requestWithAccessToken:[weibo_sdk wbtoken] url:@"https://api.weibo.com/2/statuses/update.json" httpMethod:@"POST" params:ds delegate:[U3DWeiboShare getInstacne]];
+    	
+//        WBSendMessageToWeiboRequest *request = [WBSendMessageToWeiboRequest requestWithMessage:[weibo_sdk messageToShare]];
+//        request.userInfo = @{@"ShareMessageFrom": @"SendMessageToWeiboViewController",
+//                             @"Other_Info_1": [NSNumber numberWithInt:123],
+//                             @"Other_Info_2": @[@"obj1", @"obj2"],
+//                             @"Other_Info_3": @{@"key1": @"obj1", @"key2": @"obj2"}};
+//        //request.shouldOpenWeiboAppInstallPageIfNotInstalled = NO;
+//        
+//        [WeiboSDK sendRequest:request];
         
 //        WBProvideMessageForWeiboRequest *request = [WBProvideMessageForWeiboRequest requestWithMessage:[weibo_sdk messageToShare]];
 //        request.userInfo = @{@"ShareMessageFrom": @"SendMessageToWeiboViewController",

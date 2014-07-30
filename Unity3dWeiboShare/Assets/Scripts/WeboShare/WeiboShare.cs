@@ -41,6 +41,20 @@ public class WeiboShare : MonoBehaviour
 	}
 
 	[DllImport("__Internal")]
+	private static extern void _weiboAuthorize();
+	public void Authorize()
+	{
+		_weiboAuthorize();
+	}
+
+	[DllImport("__Internal")]
+	private static extern void _weiboAuth();
+	public void Auth()
+	{
+		_weiboAuth();
+	}
+
+	[DllImport("__Internal")]
 	private static extern void _weiboShare();
 	public void Share()
 	{
