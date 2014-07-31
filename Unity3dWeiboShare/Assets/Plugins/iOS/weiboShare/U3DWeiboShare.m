@@ -7,7 +7,7 @@
 //
 
 #import "WeiboSDK.h"
-#import "U3DWebiSDK.h"
+#import "U3DWeiboSDK.h"
 
 @implementation U3DWeiboShare
 static U3DWeiboShare * weibo_share;

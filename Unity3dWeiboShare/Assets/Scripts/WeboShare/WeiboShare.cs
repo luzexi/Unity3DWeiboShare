@@ -18,6 +18,7 @@ public class WeiboShare : MonoBehaviour
 	private string m_strToken;	//weibo token
 	private long m_lTokenTime;	//weibo token time
 	private string m_strMsg;	//txt msg;
+	private string m_strImgPath;	//img Path;
 
 	private static WeiboShare s_cInstance;
 	public static WeiboShare sInstance
@@ -65,17 +66,30 @@ public class WeiboShare : MonoBehaviour
 	}
 
 	[DllImport("__Internal")]
+	private static extern void _weiboShareImg(string token , string msg , string imgPath);
+	[DllImport("__Internal")]
 	private static extern void _weiboShare(string token , string msg);
-	public void Share( string msg )
+	public void Share( string msg ,string imgPath = "" )
 	{
 		Debug.Log("u3d Share");
 		this.m_strMsg = msg;
+		this.m_strImgPath = imgPath;
+		Debug.Log(this.m_strImgPath);
 		if( DateTime.Now.Ticks - this.m_lTokenTime > 24L*3600L*1000L*10000L )
 		{
 			Authorize();
 		}
 		else
-			_weiboShare(this.m_strToken , this.m_strMsg);
+		{
+			if( this.m_strImgPath != string.Empty )
+			{
+				_weiboShareImg(this.m_strToken , this.m_strMsg , this.m_strImgPath);
+			}
+			else
+			{
+				_weiboShare(this.m_strToken , this.m_strMsg);
+			}
+		}
 	}
 
 	/// <summary>
@@ -89,7 +103,7 @@ public class WeiboShare : MonoBehaviour
 		PlayerPrefs.SetString("weibo_token",this.m_strToken);
 		PlayerPrefs.SetString("weibo_token_time" , ""+this.m_lTokenTime);
 		Debug.Log("u3d OnAuthorize");
-		Share(this.m_strMsg);
+		Share(this.m_strMsg,this.m_strImgPath);
 	}
 
 	/// <summary>

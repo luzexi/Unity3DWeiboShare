@@ -13,3 +13,4 @@ Unity3d新浪微博分享sdk插件<br>
 3.在UnityAppController.mm中的 - (BOOL)application:(UIApplication*)application openURL:(NSURL*)url sourceApplication:(NSString*)sourceApplication annotation:(id)annotation
 方法中添加[WeiboSDK handleOpenURL:url delegate:[U3DWebiSDK getWeibo]];并且引入#import "WeiboSDK.h",#import "U3DWebiSDK.h"<br>
 4.WeiboShare.cs接口中以Share为主接口，它肩负认证和分享功能。<br>
+5.微博分享图片功能以传入本地为准，本地图片地址必须在docments下，也就是u3d的Application.persistentDataPath路径。

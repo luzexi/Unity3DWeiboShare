@@ -177,6 +177,21 @@ extern "C"{
         [ds setValue:wbMsg forKey:@"status"];
     	[WBHttpRequest requestWithAccessToken:wbtoken url:@"https://api.weibo.com/2/statuses/update.json" httpMethod:@"POST" params:ds delegate:[U3DWeiboShare getInstacne]];
     }
+    
+    void _weiboShareImg( const char * token , const char * msg , const char * path )
+    {
+    	NSMutableDictionary * ds = [[NSMutableDictionary alloc] init];
+    	
+        NSString * imgPath = [[NSString alloc] initWithUTF8String:path];
+        NSString * wbtoken = [[NSString alloc] initWithUTF8String:token];
+        NSString * wbMsg = [[NSString alloc] initWithUTF8String:msg];
+        
+        NSData * img = [NSData dataWithContentsOfFile:imgPath];
+        
+        [ds setValue:wbMsg forKey:@"status"];
+        [ds setValue:img forKeyPath:@"pic"];
+    	[WBHttpRequest requestWithAccessToken:wbtoken url:@"https://upload.api.weibo.com/2/statuses/upload.json" httpMethod:@"POST" params:ds delegate:[U3DWeiboShare getInstacne]];
+    }
 }
 
 @end
