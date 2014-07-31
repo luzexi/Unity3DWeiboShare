@@ -10,7 +10,7 @@
 
 
 #import "WeiboSDK.h"
-#import "U3DWebiSDK.h"
+#import "U3DWeiboSDK.h"
 
 
 @implementation U3DWeiboAuth
@@ -31,7 +31,7 @@ static U3DWeiboAuth * weibo_auth;
 
 - (void)request:(WBHttpRequest *)request didReceiveResponse:(NSURLResponse *)response
 {
-//    [U3DWebiSDK setToken:@"ddd"];
+//    [U3DWeiboSDK setToken:@"ddd"];
     //
     NSLog(@"========= RESPONSE %@",response);
 

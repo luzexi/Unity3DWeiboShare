@@ -8,7 +8,7 @@
 
 #import "WeiboSDK.h"
 
-#import "U3DWebiSDK.h"
+#import "U3DWeiboSDK.h"
 
 
 
@@ -30,7 +30,6 @@ static U3DWeiboAuthorize * weibo_authorize;
 {
     //
     NSLog(@"========= RESPONSE %@",response);
-//    [U3DWebiSDK setCode:@"code"];
 }
 
 

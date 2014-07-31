@@ -23,12 +23,12 @@
 @end
 
 
-@interface U3DWebiSDK : UIResponder <UIApplicationDelegate, WeiboSDKDelegate>
+@interface U3DWeiboSDK : UIResponder <UIApplicationDelegate, WeiboSDKDelegate>
 {
 	//
 }
 
-+(U3DWebiSDK *)getWeibo;
++(U3DWeiboSDK *)getWeibo;
 
 @end
 

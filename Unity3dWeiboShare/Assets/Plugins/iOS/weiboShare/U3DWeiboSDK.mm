@@ -1,5 +1,5 @@
 //
-//  U3DWebiSDK.m
+//  U3DWeiboSDK.m
 //  WeiboSDKLibDemo
 //
 //  Created by luzexi on 14-7-28.
@@ -9,7 +9,7 @@
 
 #import <Foundation/Foundation.h>
 #import "WeiboSDK.h"
-#import "U3DWebiSDK.h"
+#import "U3DWeiboSDK.h"
 
 @interface WBBaseRequest ()
 - (void)debugPrint;
@@ -22,7 +22,7 @@
 
 #include "UnityAppController.h"
 
-@implementation U3DWebiSDK
+@implementation U3DWeiboSDK
 
 static NSString *gameObjectName;
 //@synthesize wbtoken;
@@ -139,9 +139,9 @@ static NSString *gameObjectName;
     return message;
 }
 
-static U3DWebiSDK * weibo_sdk = nil;
+static U3DWeiboSDK * weibo_sdk = nil;
 
-+(U3DWebiSDK *)getWeibo
++(U3DWeiboSDK *)getWeibo
 {
     return weibo_sdk;
 }
@@ -151,7 +151,7 @@ extern "C"{
 
     void _weiboInit(char * gameobjectName)
     {
-        weibo_sdk = [[U3DWebiSDK alloc] init:gameobjectName ];
+        weibo_sdk = [[U3DWeiboSDK alloc] init:gameobjectName ];
     }
     
     void _weiboAuthorize()
