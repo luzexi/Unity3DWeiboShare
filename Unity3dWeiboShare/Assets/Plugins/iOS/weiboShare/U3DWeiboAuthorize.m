@@ -1,23 +1,20 @@
 //
-//  U3DWeiboAuth.m
+//  U3DWeiboAuthorize.m
 //  Unity-iPhone
 //
 //  Created by luzexi on 14-7-29.
 //
 //
 
-
-
-
 #import "WeiboSDK.h"
+
 #import "U3DWebiSDK.h"
 
 
-@implementation U3DWeiboAuth
-static U3DWeiboAuth * weibo_auth;
 
+@implementation U3DWeiboAuthorize
 
-////
+static U3DWeiboAuthorize * weibo_authorize;
 - (void)request:(WBHttpRequest *)request didFailWithError:(NSError *)error
 {
     //
@@ -31,19 +28,17 @@ static U3DWeiboAuth * weibo_auth;
 
 - (void)request:(WBHttpRequest *)request didReceiveResponse:(NSURLResponse *)response
 {
-    [U3DWebiSDK setToken:@"ddd"];
     //
     NSLog(@"========= RESPONSE %@",response);
-
-////
+//    [U3DWebiSDK setCode:@"code"];
 }
 
 
-+(U3DWeiboAuth *) getInstance
++(U3DWeiboAuthorize *)getInstance
 {
-    if(weibo_auth == nil)
-        weibo_auth = [[U3DWeiboAuth alloc] init];
-    return weibo_auth;
+    if(weibo_authorize == nil)
+        weibo_authorize = [[U3DWeiboAuthorize alloc] init];
+    return weibo_authorize;
 }
 
 @end

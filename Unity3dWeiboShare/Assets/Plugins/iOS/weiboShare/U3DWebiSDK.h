@@ -25,15 +25,10 @@
 
 @interface U3DWebiSDK : UIResponder <UIApplicationDelegate, WeiboSDKDelegate>
 {
-    //NSString* wbtoken;
-    NSString *gameObjectName;
+	//
 }
 
-+(void)setToken:(NSString *) token;
-+(void)setCode:(NSString *)code;
-
-@property (strong, retain) NSString* wbtoken;
-@property (strong, nonatomic) NSString * wbcode;
++(U3DWebiSDK *)getWeibo;
 
 @end
 

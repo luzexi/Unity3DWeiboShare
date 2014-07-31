@@ -28,6 +28,8 @@ static U3DWeiboShare * weibo_share;
 {
     //
     NSLog(@"========= RESPONSE %@",response);
+    //const char * objName = [[U3DWebiSDK gameObjectName] UTF8String];
+    UnitySendMessage("WeiboShare", "OnShare", "ok");
 }
 ////
 

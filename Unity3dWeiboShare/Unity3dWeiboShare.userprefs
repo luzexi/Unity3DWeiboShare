@@ -1,20 +1,19 @@
 ﻿<Properties>
-  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/Plugins/iOS/U3DWebiSDK.h">
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" PreferredExecutionTarget="MonoDevelop.Default" />
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/Plugins/iOS/U3DWebiSDK.mm">
     <Files>
       <File FileName="Assets/Scripts/WeboShare/WeiboShare.cs" Line="50" Column="27" />
-      <File FileName="Assets/Plugins/iOS/U3DWebiSDK.mm" Line="115" Column="51" />
-      <File FileName="Assets/Scripts/WeiboTest.cs" Line="27" Column="28" />
-      <File FileName="Assets/Plugins/iOS/U3DWebiSDK.h" Line="26" Column="77" />
+      <File FileName="Assets/Plugins/iOS/U3DWebiSDK.mm" Line="195" Column="55" />
+      <File FileName="Assets/Scripts/WeiboTest.cs" Line="9" Column="31" />
+      <File FileName="Assets/Plugins/iOS/U3DWebiSDK.h" Line="25" Column="1" />
     </Files>
     <Pads>
       <Pad Id="ProjectPad">
         <State expanded="True">
           <Node name="Assembly-CSharp" expanded="True">
             <Node name="Scripts" expanded="True">
-              <Node name="WeboShare" expanded="True">
-                <Node name="WeiboShare.cs" selected="True" />
-              </Node>
+              <Node name="WeboShare" expanded="True" />
+              <Node name="WeiboTest.cs" selected="True" />
             </Node>
           </Node>
         </State>

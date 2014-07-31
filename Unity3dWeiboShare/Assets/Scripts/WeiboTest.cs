@@ -17,14 +17,19 @@ public class WeiboTest : MonoBehaviour {
 
 	void OnGUI()
 	{
-		if(GUI.Button(new Rect(0,0,100,40) , "share"))
+		if(GUI.Button(new Rect(0,0,100,100) , "share"))
 		{
-			WeiboShare.sInstance.Share();
+			WeiboShare.sInstance.Share("SDK test in the weibo");
 		}
 
-		if(GUI.Button(new Rect(0,40,100,40),"Authorize"))
+		if(GUI.Button(new Rect(0,110,100,100),"Authorize"))
 		{
 			WeiboShare.sInstance.Authorize();
+		}
+
+		if(GUI.Button(new Rect(0,220,100,100),"clear"))
+		{
+			WeiboShare.sInstance.clear();
 		}
 	}
 }
